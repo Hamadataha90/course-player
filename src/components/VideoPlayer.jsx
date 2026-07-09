@@ -8,7 +8,7 @@ import LeaderBoard from './LeaderBoard';
 
 
 
-const VideoPlayer = ({onClose}) => {
+const VideoPlayer = ({onClose, }) => {
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [showLeaderBoard, setshowLeaderBoard] = useState(false);
 
@@ -58,7 +58,7 @@ const VideoPlayer = ({onClose}) => {
           <FaTrophy className="text-blue-600" />
           <span>Leaderboard</span>
         </button>
-        {showLeaderBoard && <LeaderBoard onClose={() => setshowLeaderBoard(false)} />}
+        {showLeaderBoard && <LeaderBoard   onClose={() => setshowLeaderBoard(false)} />}
       </div>
 
      

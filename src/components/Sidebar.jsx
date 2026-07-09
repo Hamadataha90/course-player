@@ -1,8 +1,13 @@
+"use client";
 import { AiOutlineArrowDown, AiOutlineLock, AiOutlineFileText } from "react-icons/ai";
+import { useCourse } from "@/context/CourseContext";
+
 
 function Sidebar() {
-  const value = 75;
-  const progress = `${value}%`;
+  const { progress } = useCourse();
+    const progressBar = `${progress}%`;
+
+ 
 
   const weeks = [
     {
@@ -152,7 +157,7 @@ function Sidebar() {
       <div className="relative w-full h-[76px] select-none">
 
         <div className="absolute top-[-5px]  -translate-x-1/2"
-          style={{ left: progress }}
+          style={{ left: progressBar }}
         >
           <div className="flex flex-col items-center">
             <div className="rounded-full border border-gray-300 bg-white px-3 py-1 text-xs font-semibold shadow-sm">
@@ -164,16 +169,16 @@ function Sidebar() {
 
         <div className="absolute top-[35px] left-0 w-full h-[6px] bg-[#EBEBEB] rounded-full">
           <div className="h-full bg-blue-600 rounded-full "
-            style={{ width: progress }}
+            style={{ width: progressBar }}
           />
         </div>
 
         <div className="absolute bottom-1  -translate-x-1/2"
-          style={{ left: progress }}
+          style={{ left: progressBar }}
         >
 
           <span className="text-[13px] font-semibold text-slate-800">
-            {value}%
+            {progress}%
           </span>
         </div>
 
