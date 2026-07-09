@@ -1,13 +1,21 @@
 "use client";
 import { AiOutlineArrowDown, AiOutlineLock, AiOutlineFileText } from "react-icons/ai";
 import { useCourse } from "@/context/CourseContext";
+import { useEffect ,useState} from "react";
 
 
 function Sidebar() {
-  const { progress } = useCourse();
-    const progressBar = `${progress}%`;
+  const { progress } = useCourse() ;
 
- 
+  const [animatedProgress, setAnimatedProgress] = useState(0);
+
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setAnimatedProgress( progress);
+  }, 500); 
+  return () => clearTimeout(timer);
+}, [progress]);
+
 
   const weeks = [
     {
@@ -156,8 +164,8 @@ function Sidebar() {
       {/* Progress Bar  */}
       <div className="relative w-full h-[76px] select-none">
 
-        <div className="absolute top-[-5px]  -translate-x-1/2"
-          style={{ left: progressBar }}
+        <div className="absolute top-[-5px]  -translate-x-1/2 transition-all duration-3000 ease-out"
+          style={{ left: `${animatedProgress}%` }}
         >
           <div className="flex flex-col items-center">
             <div className="rounded-full border border-gray-300 bg-white px-3 py-1 text-xs font-semibold shadow-sm">
@@ -168,13 +176,13 @@ function Sidebar() {
         </div>
 
         <div className="absolute top-[35px] left-0 w-full h-[6px] bg-[#EBEBEB] rounded-full">
-          <div className="h-full bg-blue-600 rounded-full "
-            style={{ width: progressBar }}
+          <div className="h-full bg-blue-600 rounded-full transition-all duration-3000 ease-out"
+            style={{ width: `${animatedProgress}%` }}
           />
         </div>
 
-        <div className="absolute bottom-1  -translate-x-1/2"
-          style={{ left: progressBar }}
+        <div className="absolute bottom-1  -translate-x-1/2 transition-all duration-3000 ease-out  "
+          style={{ left: `${animatedProgress}%` }}
         >
 
           <span className="text-[13px] font-semibold text-slate-800">

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --duration-3000: 3000ms;
+}
+
 :root {
   color-scheme: light;
 }
