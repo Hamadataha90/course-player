@@ -15,22 +15,18 @@ export default function Home() {
 
 
       <div className="mx-auto max-w-[1304px] w-full flex flex-col xl:flex-row justify-between gap-8 px-6 md:px-10 mt-[30px] border-px border-[#E1E3E1]">
-         {/* Mobile Video Player */}
-         <div className="block xl:hidden w-full sticky top-0 bg-white z-20 pb-4">
-           <VideoPlayer  />
-         </div>
-
-         <div className="flex-1 min-w-0 max-w-full">
-           {/* Desktop Video Player */}
-           <div className="hidden xl:block">
-             <VideoPlayer   />
-           </div>
-           <CourseMaterials />
-           <Comments />
-         </div>
+        {/* Left Column - acts as layout contents on mobile to allow the video to stick globally, and as a flex-1 block on desktop */}
+        <div className="contents xl:block xl:flex-1 xl:min-w-0 xl:max-w-full">
+          {/* Video Player - sticky top on mobile, normal position on desktop */}
+          <div className="sticky top-0 bg-white z-20 pb-4 w-full xl:relative xl:pb-0 xl:z-0">
+            <VideoPlayer />
+          </div>
+          <CourseMaterials />
+          <Comments />
+        </div>
         
         <div className="flex-shrink-0">
-          <Sidebar  />
+          <Sidebar />
         </div>
       </div>
       </CourseProvider>
