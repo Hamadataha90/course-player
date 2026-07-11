@@ -13,6 +13,7 @@ const AsqQuestion = ({ onClose }) => {
     if (storedQuestion) {
       setQuestionText(storedQuestion);
     }
+    
   }, []);
    
    

@@ -1,13 +1,18 @@
 "use client";
 import { AiOutlineArrowDown, AiOutlineLock, AiOutlineFileText } from "react-icons/ai";
 import { useCourse } from "@/context/CourseContext";
-import { useEffect ,useState} from "react";
+import { useEffect, useState } from "react";
+import Exam from "@/components/Exam";
+import PDFViewer from "@/components/PDFViewer";
 
 
 function Sidebar() {
   const { progress } = useCourse() ;
 
   const [animatedProgress, setAnimatedProgress] = useState(0);
+  const [showExam, setShowExam] = useState(false);
+  const [showPDF, setShowPDF]   = useState(false);
+  const [activePDF, setActivePDF] = useState({ url: null, title: "" });
 
   useEffect(() => {
   const timer = setTimeout(() => {
@@ -41,6 +46,7 @@ function Sidebar() {
           question: "0 QUESTION",
           duration: "10 MINUTES",
           locked: false,
+          hasPDF: true,
         },
         {
           id: 4,
@@ -57,8 +63,10 @@ function Sidebar() {
         {
           id: 6,
           title: "Embedding PHP in HTML",
-          duration: "6",
-          locked: true,
+          question: "1 QUESTION",
+          duration: "10 MINUTES",
+          locked: false,
+          hasExam: true,
         },
       ],
     },
@@ -85,6 +93,7 @@ function Sidebar() {
           question: "2 QUESTION",
           duration: "15 MINUTES",
           locked: false,
+          hasExam: true,
         },
         {
           id: 4,
@@ -129,6 +138,7 @@ function Sidebar() {
           question: "1 QUESTION",
           duration: "20 MINUTES",
           locked: false,
+          hasExam: true,
         },
         {
           id: 4,
@@ -164,7 +174,7 @@ function Sidebar() {
       {/* Progress Bar  */}
       <div className="relative w-full h-[76px] select-none">
 
-        <div className="absolute top-[-5px]  -translate-x-1/2 transition-all duration-3000 ease-out"
+        <div className="absolute top-[-5px]  -translate-x-1/2 transition-all duration-5000 ease-out"
           style={{ left: `${animatedProgress}%` }}
         >
           <div className="flex flex-col items-center">
@@ -176,12 +186,12 @@ function Sidebar() {
         </div>
 
         <div className="absolute top-[35px] left-0 w-full h-[6px] bg-[#EBEBEB] rounded-full">
-          <div className="h-full bg-blue-600 rounded-full transition-all duration-3000 ease-out"
+          <div className="h-full bg-blue-600 rounded-full transition-all duration-5000 ease-out"
             style={{ width: `${animatedProgress}%` }}
           />
         </div>
 
-        <div className="absolute bottom-1  -translate-x-1/2 transition-all duration-3000 ease-out  "
+        <div className="absolute bottom-1  -translate-x-1/2 transition-all duration-5000 ease-out  "
           style={{ left: `${animatedProgress}%` }}
         >
 
@@ -219,7 +229,7 @@ function Sidebar() {
                 {week.lessons.map((lesson) => (
                   <div key={lesson.id} >
                     <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
                         <AiOutlineFileText className="text-[#D8A25E] text-[20px] flex-shrink-0" />
                         <span
                           className={`text-[15px] font-normal transition-colors duration-200 ${
@@ -230,6 +240,22 @@ function Sidebar() {
                         >
                           {lesson.title}
                         </span>
+                        {lesson.hasPDF && (
+                          <button
+                            onClick={() => setShowPDF(true)}
+                            className="flex-shrink-0 ml-1 text-[9px] font-bold px-2 py-[3px] rounded-[4px] bg-[#E8F0FE] text-[#3A57E8] border border-[#3A57E8]/30 tracking-wider hover:bg-[#3A57E8] hover:text-white active:scale-95 transition-all duration-150 cursor-pointer"
+                          >
+                            PDF
+                          </button>
+                        )}
+                        {lesson.hasExam && (
+                          <button
+                            onClick={() => setShowExam(true)}
+                            className="flex-shrink-0 ml-1 text-[9px] font-bold px-2 py-[3px] rounded-[4px] bg-[#243C96] text-white tracking-wider hover:bg-[#1a2d72] active:scale-95 transition-all duration-150 cursor-pointer"
+                          >
+                            EXAM
+                          </button>
+                        )}
                       </div>
 
                       {lesson.locked ? (
@@ -251,6 +277,8 @@ function Sidebar() {
             </div>
           ))}
       </div>
+      {showExam && <Exam onClose={() => setShowExam(false)} />}
+      {showPDF  && <PDFViewer onClose={() => setShowPDF(false)} title={activePDF.title} pdfUrl={activePDF.url} />}
     </div>
   );
 }
