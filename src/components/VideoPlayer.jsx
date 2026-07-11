@@ -21,7 +21,9 @@ const VideoPlayer = ({onClose, }) => {
 
   return (
     <div className="max-w-[799px] w-full">
-      <video width="799" height="527" className="w-full h-auto max-w-full rounded-lg" controls >
+      <video width="799" height="527" className="w-full h-auto max-w-full rounded-lg" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
 
       <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-700">
